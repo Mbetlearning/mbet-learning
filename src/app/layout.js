@@ -1,6 +1,7 @@
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+// ✅ NO "use client" here
 import '../styles/globals.css';
+import LayoutClient from './layoutclient'; // Add this small wrapper
+
 export const metadata = {
   title: 'MBET Learning',
   description: 'Empowering Students',
@@ -10,9 +11,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <Navbar />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
+        <LayoutClient>{children}</LayoutClient>
       </body>
     </html>
   );

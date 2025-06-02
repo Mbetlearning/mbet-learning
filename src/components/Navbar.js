@@ -6,7 +6,7 @@ export default function Navbar() {
     <nav className="bg-blue-600 text-white p-4 flex justify-between">
       <Link href="/" className="text-xl font-bold">MBET Learning</Link>
       <div className="space-x-4">
-         <Link href="/Home">Home</Link>
+         <Link href="/home">home</Link>
         <Link href="/courses">Courses</Link>
         <Link href="/dashboard">Dashboard</Link>
         <Link href="/login">Login</Link>
