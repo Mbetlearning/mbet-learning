@@ -22,7 +22,7 @@ const handleLogin = async (e) => {
     if (response.ok) {
       alert('Login successful!')
       localStorage.setItem('isLoggedIn', 'true')
-      router.push('/courses')
+     router.push('/courses')
     } else {
       alert(data.error || 'Login failed')
       setPassword('')

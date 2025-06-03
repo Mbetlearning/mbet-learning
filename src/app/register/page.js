@@ -59,7 +59,7 @@ export default function Register() {
 
       if (response.ok) {
         alert('Registration successful!')
-        router.push('/login')
+      //  router.push('/login')
       } else {
         alert(data.error || 'Registration failed.')
       }
