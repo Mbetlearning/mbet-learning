@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 export default function Register() {
   const router = useRouter()
@@ -24,7 +25,6 @@ export default function Register() {
   const handleRegister = async (e) => {
     e.preventDefault()
 
-    // Basic frontend validation
     if (!username || !number || !email || !password || !otp) {
       alert('All fields are required.')
       return
@@ -42,24 +42,24 @@ export default function Register() {
 
     try {
       const response = await fetch('/api/register', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({
-  username,
-  mobile: number, // ✅ match backend expectation
-  email,
-  password,
-  otp,
-}),
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username,
+          mobile: number,
+          email,
+          password,
+          otp,
+        }),
+      })
 
-});
       const data = await response.json()
 
       if (response.ok) {
         alert('Registration successful!')
-      //  router.push('/login')
+        router.push('/login')
       } else {
         alert(data.error || 'Registration failed.')
       }
@@ -70,72 +70,84 @@ export default function Register() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-red-400 relative">
-      <button
-        onClick={() => router.push('/login')}
-        className="absolute top-6 right-6 text-sm text-blue-600 hover:text-blue-800 flex items-center gap-1"
-      >
-        Go to Login →
-      </button>
+    <div className="min-h-screen flex items-center justify-center bg-purple-600">
+      <div className="bg-white rounded-lg shadow-lg flex w-[90%] max-w-4xl overflow-hidden">
+        {/* Left - Register Form */}
+        <div className="w-full md:w-1/2 p-8">
+          <h2 className="text-2xl font-bold mb-6">Register</h2>
 
-      <form
-        onSubmit={handleRegister}
-        className="bg-green-400 p-6 rounded-xl shadow-md space-y-4 w-full max-w-sm"
-      >
-        <h2 className="text-2xl font-bold text-center">Register</h2>
+          <form onSubmit={handleRegister} className="space-y-4">
+            <input
+              type="text"
+              placeholder="Name"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+              className="w-full px-4 py-2 border-b border-gray-300 focus:outline-none focus:border-purple-600"
+            />
 
-        <input
-          type="text"
-          placeholder="Name"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-          className="bg-gray-400 w-full px-4 py-2 border rounded-md"
-        />
+            <input
+              type="number"
+              placeholder="Mobile-No"
+              value={number}
+              onChange={(e) => setNumber(e.target.value)}
+              required
+              className="w-full px-4 py-2 border-b border-gray-300 focus:outline-none focus:border-purple-600"
+            />
 
-        <input
-          type="number"
-          placeholder="Mobile-No"
-          value={number}
-          onChange={(e) => setNumber(e.target.value)}
-          required
-          className="bg-gray-400 w-full px-4 py-2 border rounded-md"
-        />
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="w-full px-4 py-2 border-b border-gray-300 focus:outline-none focus:border-purple-600"
+            />
 
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          className="bg-gray-400 w-full px-4 py-2 border rounded-md"
-        />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              className="w-full px-4 py-2 border-b border-gray-300 focus:outline-none focus:border-purple-600"
+            />
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          className="bg-gray-400 w-full px-4 py-2 border rounded-md"
-        />
+            <input
+              type="text"
+              placeholder="Enter OTP"
+              value={otp}
+              onChange={(e) => setOtp(e.target.value)}
+              required
+              className="w-full px-4 py-2 border-b border-gray-300 focus:outline-none focus:border-purple-600"
+            />
 
-        <input
-          type="text"
-          placeholder="Enter OTP"
-          value={otp}
-          onChange={(e) => setOtp(e.target.value)}
-          required
-          className="bg-gray-400 w-full px-4 py-2 border rounded-md"
-        />
+            <button
+              type="submit"
+              className="w-full bg-purple-600 text-white py-2 rounded hover:bg-purple-700 transition"
+            >
+              Register
+            </button>
+          </form>
 
-        <button
-          type="submit"
-          className="w-full bg-green-600 text-black py-2 rounded-md hover:bg-green-700"
-        >
-          Register
-        </button>
-      </form>
+          <p className="text-sm text-center mt-4">
+            Already have an account?{' '}
+            <Link href="/login" className="text-purple-600 hover:underline">
+              Login
+            </Link>
+          </p>
+        </div>
+
+        {/* Right - Image and Quote */}
+        <div className="hidden md:flex w-1/2 bg-purple-600 text-white items-center justify-center relative">
+          <img
+            src="/mbetlogo2.jpeg"
+            alt="register visual"
+            className="absolute inset-0 w-full h-full object-cover opacity-100"
+          />
+          
+        </div>
+      </div>
     </div>
   )
 }

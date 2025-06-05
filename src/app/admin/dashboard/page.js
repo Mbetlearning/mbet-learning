@@ -7,18 +7,24 @@ export default function AdminDashboard() {
   const router = useRouter();
   const [admin, setAdmin] = useState(false);
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      const res = await fetch('/api/admin/check', { method: 'GET' });
-      const data = await res.json();
-      if (!data.isAdmin) {
-        router.push('/admin/login');
-      } else {
-        setAdmin(true);
-      }
-    };
-    checkAuth();
-  }, [router]);
+ useEffect(() => {
+  const checkAuth = async () => {
+    const res = await fetch('/api/admin/check', {
+      method: 'GET',
+      credentials: 'include',
+    });
+    const data = await res.json();
+
+    if (!data.isAdmin) {
+      router.push('/admin/adminlogin');
+    } else {
+      setAdmin(true);
+    }
+  };
+  checkAuth();
+}, [router]);
+
+
 
   if (!admin) return null;
 
@@ -49,3 +55,14 @@ function DashboardCard({ title, link }) {
     </div>
   );
 }
+<button
+  onClick={() => {
+    document.cookie = "adminAuth=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+
+    router.push('/admin/adminlogin');
+  }}
+  className="mt-6 bg-red-500 text-white px-4 py-2 rounded"
+>
+  Logout
+</button>
+

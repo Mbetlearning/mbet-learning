@@ -23,7 +23,7 @@ export default function UploadVideo() {
   };
 
   return (
-    <div className="p-6 max-w-xl mx-auto">
+    <div className="p-6 max-w-xl mx-auto bg-white shadow-md rounded-lg">
       <h2 className="text-xl font-bold mb-4">Upload Video</h2>
       <input
         type="file"

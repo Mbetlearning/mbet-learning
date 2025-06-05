@@ -1,8 +1,15 @@
-// /app/admin/layout.js
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 
 export default function AdminLayout({ children }) {
+  const handleLogout = () => {
+    // Clear admin cookie and redirect to login
+    document.cookie = "adminAuth=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    window.location.href = "/admin/adminlogin";
+  };
+
   return (
     <div className="flex h-screen bg-gray-100">
       {/* Sidebar */}
@@ -30,9 +37,12 @@ export default function AdminLayout({ children }) {
         <header className="mb-6">
           <div className="flex justify-between items-center">
             <h1 className="text-2xl font-semibold">Welcome, Admin</h1>
-            <Link href="/admin/login" className="text-red-600 hover:underline">
+            <button
+              onClick={handleLogout}
+              className="text-red-600 hover:underline"
+            >
               Logout
-            </Link>
+            </button>
           </div>
         </header>
 
